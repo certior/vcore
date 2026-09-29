@@ -1,0 +1,274 @@
+{
+  "allowed_bots=star": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 2,
+    "untrusted-write:sat->viol": 2
+  },
+  "allowed_non_write_users=named": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:viol->sat": 16
+  },
+  "allowed_non_write_users=star": {
+    "seeds": 9,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 19,
+    "exfiltration:viol->sat": 16
+  },
+  "allowed_tools=bash": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 3,
+    "untrusted-write:sat->viol": 9
+  },
+  "allowed_tools=ci-tools": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "allowed_tools=comment-tool": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "allowed_tools=gh-comment": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "allowed_tools=gh-view": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 2,
+    "untrusted-write:sat->viol": 2
+  },
+  "allowed_tools=git-all": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 3,
+    "untrusted-write:sat->viol": 9
+  },
+  "allowed_tools=github-mcp": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 3,
+    "untrusted-write:sat->viol": 2
+  },
+  "allowed_tools=inline-comment": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "allowed_tools=webfetch": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 3,
+    "untrusted-write:sat->viol": 2
+  },
+  "checkout=pr-head": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "combo_star_bash=star+token+bash": {
+    "seeds": 10,
+    "configs_added": 1,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:viol->sat": 16,
+    "untrusted-write:sat->viol": 9
+  },
+  "combo_star_env_off=star+token+scrub-off+bash": {
+    "seeds": 10,
+    "configs_added": 1,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 4,
+    "untrusted-write:sat->viol": 9
+  },
+  "disallowed_tools=no-push": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "disallowed_tools=no-webfetch": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "env_scrub=off": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "env_scrub=on": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "exclude_comments_by_actor=outsider": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "github_token=auto": {
+    "seeds": 9,
+    "configs_added": 1,
+    "configs_removed": 0,
+    "configs_compared": 19
+  },
+  "include_comments_by_actor=maintainer": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:viol->sat": 4,
+    "untrusted-write:viol->sat": 4
+  },
+  "job_if=drop": {
+    "seeds": 5,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 11
+  },
+  "permission_mode=accept-edits": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "permission_mode=bypass": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 3,
+    "untrusted-write:sat->viol": 9
+  },
+  "permission_mode=skip-permissions": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 3,
+    "untrusted-write:sat->viol": 9
+  },
+  "permissions=absent": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 19,
+    "configs_compared": 1
+  },
+  "permissions=actions-read": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 19,
+    "configs_compared": 1
+  },
+  "permissions=read-all": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 19,
+    "configs_compared": 1
+  },
+  "prompt=absent": {
+    "seeds": 8,
+    "configs_added": 2,
+    "configs_removed": 8,
+    "configs_compared": 4
+  },
+  "prompt=comment-body": {
+    "seeds": 10,
+    "configs_added": 10,
+    "configs_removed": 8,
+    "configs_compared": 12
+  },
+  "prompt=issue-body": {
+    "seeds": 10,
+    "configs_added": 10,
+    "configs_removed": 8,
+    "configs_compared": 12
+  },
+  "prompt=literal": {
+    "seeds": 10,
+    "configs_added": 10,
+    "configs_removed": 8,
+    "configs_compared": 12
+  },
+  "prompt=pr-body": {
+    "seeds": 10,
+    "configs_added": 10,
+    "configs_removed": 8,
+    "configs_compared": 12
+  },
+  "settings=allow-bash": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20,
+    "exfiltration:sat->viol": 3,
+    "untrusted-write:sat->viol": 9
+  },
+  "ssh_signing_key=set": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "track_progress=true": {
+    "seeds": 9,
+    "configs_added": 6,
+    "configs_removed": 8,
+    "configs_compared": 8
+  },
+  "triggers=assignee": {
+    "seeds": 10,
+    "configs_added": 2,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "triggers=label-off": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "triggers=phrase": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  },
+  "use_commit_signing=true": {
+    "seeds": 10,
+    "configs_added": 0,
+    "configs_removed": 0,
+    "configs_compared": 20
+  }
+}

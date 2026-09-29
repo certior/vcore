@@ -1,0 +1,21 @@
+/.lake
+__pycache__/
+*.egg-info/
+.pytest_cache/
+corpus/data/
+
+# oracle: pinned claude-code-action clone and its dependencies
+/oracle/vendor/
+node_modules/
+/bench/release/
+/corpus/release/
+/bench/scenarios/generated.jsonl
+/bench/observations/generated.jsonl
+/bench/observations/generated.log
+/bench/results/mismatches.jsonl
+/oracle/probe/package/
+/oracle/probe/*.log
+/oracle/probe/cli_out.json
+
+# local notes, not published
+/DISCLOSURE.md

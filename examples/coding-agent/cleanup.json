@@ -1,0 +1,38 @@
+{
+  "permit": [
+    "Read/**",
+    "Edit/src/**",
+    "Edit/tests/**",
+    "Bash/pytest/**",
+    "Bash/git/diff/**",
+    "WebFetch/**",
+    "mcp/github/get_issue",
+    "mcp/github/create_pull_request"
+  ],
+  "forbid": [
+    "**/.env",
+    "Read/secrets/**"
+  ],
+  "label": {
+    "Read/customers/**": "private",
+    "Read/config/prod/**": "private",
+    "WebFetch/**": "untrusted",
+    "mcp/github/get_issue": "untrusted"
+  },
+  "block": [
+    {
+      "on": "WebFetch/**",
+      "after": [
+        "private",
+        "untrusted"
+      ]
+    },
+    {
+      "on": "mcp/github/create_pull_request",
+      "after": [
+        "private",
+        "untrusted"
+      ]
+    }
+  ]
+}

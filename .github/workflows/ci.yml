@@ -1,0 +1,53 @@
+name: verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache Lean build
+        uses: actions/cache@v4
+        with:
+          path: .lake
+          key: lake-${{ hashFiles('lean-toolchain', 'lakefile.toml', '**/*.lean') }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: pip install pytest z3-solver pyyaml
+
+      - name: Proofs, axiom audit, tests, mutation study
+        run: make verify
+
+  fidelity:
+    # The model agrees with the pinned claude-code-action on the smoke scenarios.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - name: Oracle on the smoke scenarios
+        run: |
+          oracle/fetch.sh
+          (cd oracle && bun test)
+          bun oracle/run.ts bench/scenarios/smoke.jsonl --jobs 4 > smoke.jsonl
+          python3 bench/compare.py bench/scenarios/smoke.jsonl smoke.jsonl --json fidelity.json
+          python3 -c "import json,sys; r=json.load(open('fidelity.json')); sys.exit(r['exact'] != r['compared'])"

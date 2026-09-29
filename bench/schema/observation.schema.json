@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vcore.invalid/bench/observation.schema.json",
+  "title": "Observation",
+  "description": "What claude-code-action sets up for the Claude Code session in one Scenario, observed at the point the Claude Code process is started. Produced by the oracle (by running the action) and predicted by the model. Fields in `extra` are oracle diagnostics and are not compared.",
+  "type": "object",
+  "required": ["id", "action_commit", "runs", "stop_reason", "mode", "allowed_tools", "disallowed_tools",
+               "permission_mode", "mcp_servers", "credentials", "env_scrub", "prompt_canaries"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string" },
+    "action_commit": { "type": "string", "description": "Commit of claude-code-action the observation is about (short or full SHA)." },
+    "runs": { "type": "boolean", "description": "Whether the Claude Code process is started." },
+    "stop_reason": {
+      "type": ["string", "null"],
+      "description": "Null when runs. Otherwise one of: event-not-in-workflow, job-if, step-if, unsupported-expression, unsupported-event, no-trigger, actor-permission, non-human-actor, missing-credentials, oidc-unavailable, error:<message>."
+    },
+    "mode": { "enum": ["tag", "agent", null], "description": "Mode the action detected (reported even when the run stops later), null when the action did not start." },
+    "allowed_tools": { "type": "array", "items": { "type": "string" }, "description": "--allowedTools passed to Claude Code, in order, with the action path written as ${GITHUB_ACTION_PATH}." },
+    "disallowed_tools": { "type": "array", "items": { "type": "string" } },
+    "permission_mode": { "type": ["string", "null"], "description": "--permission-mode passed to Claude Code, if any." },
+    "mcp_servers": { "type": "array", "items": { "type": "string" }, "description": "Names of MCP servers in --mcp-config, sorted." },
+    "credentials": {
+      "type": "object",
+      "required": ["token_in_git_config", "credential_helper", "claude_env"],
+      "additionalProperties": false,
+      "properties": {
+        "token_in_git_config": { "type": "boolean", "description": "A GitHub token is readable from the workspace's .git/config or a file it includes (remote URL or extraheader) when Claude Code starts. All credential fields are false/empty when runs is false." },
+        "credential_helper": { "type": "boolean", "description": "The workspace git config names a credential helper." },
+        "claude_env": { "type": "array", "items": { "type": "string" }, "description": "Names of environment variables in the Claude Code process whose value carries a credential (GitHub token, API key, repository secret, OIDC token), sorted." }
+      }
+    },
+    "env_scrub": { "type": "boolean", "description": "CLAUDE_CODE_SUBPROCESS_ENV_SCRUB is enabled in the Claude Code process environment." },
+    "prompt_canaries": {
+      "type": "array", "items": { "type": "string", "pattern": "^[a-z_.]+@(maintainer|outsider|actor)$" },
+      "description": "Canaries (field@author) that reach Claude Code's prompt: the prompt file, the user request file, or the process arguments. Sorted."
+    },
+    "extra": { "type": "object", "description": "Oracle diagnostics (not compared)." }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "permit": ["**"],
+  "block": [
+    { "on": "Edit/**", "after": ["private", "untrusted"] },
+    { "on": "Bash/**", "after": ["private", "untrusted"] },
+    { "on": "WebFetch/**", "after": ["private", "untrusted"] },
+    { "on": "mcp/github/create_pull_request", "after": ["private", "untrusted"] }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "scenarios": 3229,
+  "excluded": {
+    "unsupported-expression": 74
+  },
+  "compared": 3155,
+  "exact": 3143,
+  "fields": {
+    "runs": {
+      "agree": 3145,
+      "total": 3155
+    },
+    "mode": {
+      "agree": 3155,
+      "total": 3155
+    },
+    "allowed_tools": {
+      "agree": 933,
+      "total": 933
+    },
+    "disallowed_tools": {
+      "agree": 933,
+      "total": 933
+    },
+    "permission_mode": {
+      "agree": 933,
+      "total": 933
+    },
+    "mcp_servers": {
+      "agree": 933,
+      "total": 933
+    },
+    "token_in_git_config": {
+      "agree": 933,
+      "total": 933
+    },
+    "credential_helper": {
+      "agree": 933,
+      "total": 933
+    },
+    "env_github_token": {
+      "agree": 933,
+      "total": 933
+    },
+    "env_scrub": {
+      "agree": 933,
+      "total": 933
+    },
+    "prompt_canaries": {
+      "agree": 931,
+      "total": 933
+    }
+  },
+  "by_knob": {
+    "allowed_bots": {
+      "scenarios": 77,
+      "exact": 77
+    },
+    "allowed_non_write_users": {
+      "scenarios": 152,
+      "exact": 152
+    },
+    "allowed_tools": {
+      "scenarios": 693,
+      "exact": 693
+    },
+    "checkout": {
+      "scenarios": 77,
+      "exact": 77
+    },
+    "combo_star_bash": {
+      "scenarios": 75,
+      "exact": 71
+    },
+    "combo_star_env_off": {
+      "scenarios": 77,
+      "exact": 73
+    },
+    "disallowed_tools": {
+      "scenarios": 154,
+      "exact": 154
+    },
+    "env_scrub": {
+      "scenarios": 154,
+      "exact": 154
+    },
+    "exclude_comments_by_actor": {
+      "scenarios": 77,
+      "exact": 77
+    },
+    "github_token": {
+      "scenarios": 75,
+      "exact": 73
+    },
+    "include_comments_by_actor": {
+      "scenarios": 77,
+      "exact": 77
+    },
+    "job_if": {
+      "scenarios": 52,
+      "exact": 52
+    },
+    "permission_mode": {
+      "scenarios": 231,
+      "exact": 231
+    },
+    "permissions": {
+      "scenarios": 231,
+      "exact": 231
+    },
+    "prompt": {
+      "scenarios": 351,
+      "exact": 351
+    },
+    "seed": {
+      "scenarios": 77,
+      "exact": 77
+    },
+    "settings": {
+      "scenarios": 77,
+      "exact": 77
+    },
+    "ssh_signing_key": {
+      "scenarios": 77,
+      "exact": 77
+    },
+    "track_progress": {
+      "scenarios": 63,
+      "exact": 63
+    },
+    "triggers": {
+      "scenarios": 231,
+      "exact": 231
+    },
+    "use_commit_signing": {
+      "scenarios": 77,
+      "exact": 75
+    }
+  },
+  "stop_pairs": {
+    "None | None": 933,
+    "oidc-unavailable | oidc-unavailable": 871,
+    "actor-permission | actor-permission": 685,
+    "job-if | job-if": 612,
+    "token-scope | missing-credentials": 27,
+    "token-scope | None": 10,
+    "no-trigger | no-trigger": 7,
+    "missing-credentials | missing-credentials": 7,
+    "track-progress-invalid-event | track-progress-invalid-event": 3
+  }
+}

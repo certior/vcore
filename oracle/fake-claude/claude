@@ -1,0 +1,37 @@
+#!/usr/bin/env bun
+// Stand-in for the Claude Code executable (PATH_TO_CLAUDE_CODE_EXECUTABLE). The Agent SDK
+// spawns it with the arguments and environment the real CLI would get. It records them,
+// the workspace's CLAUDE.md and the user settings, waits briefly for the SDK's first
+// stdin messages, and exits non-zero: no model is ever called.
+import { readdirSync, readFileSync, statSync, writeFileSync } from "fs";
+
+const read = (p: string) => { try { return readFileSync(p, "utf8"); } catch { return null; } };
+let stdin = "";
+process.stdin.on("data", (d) => { stdin += d.toString(); });
+// Small files in the working tree (not .git), as Claude Code's Read tool would see them.
+function files(dir: string, prefix = "", out: Record<string, string> = {}): Record<string, string> {
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    if (e.name === ".git") continue;
+    const rel = prefix ? `${prefix}/${e.name}` : e.name;
+    if (e.isDirectory()) files(`${dir}/${e.name}`, rel, out);
+    else if (e.isFile() && statSync(`${dir}/${e.name}`).size < 65536) out[rel] = read(`${dir}/${e.name}`) ?? "";
+  }
+  return out;
+}
+const gitConfig = Bun.spawnSync(["git", "config", "--local", "--list", "--includes"], { stdout: "pipe", stderr: "pipe" });
+const capture = {
+  argv: process.argv.slice(2),
+  env: { ...process.env },
+  cwd: process.cwd(),
+  claudeMd: read("CLAUDE.md"),
+  userSettings: read(`${process.env.HOME}/.claude/settings.json`),
+  files: files(process.cwd()),
+  gitConfig: gitConfig.exitCode === 0 ? gitConfig.stdout.toString() : null,
+  sshKeyFile: read(`${process.env.HOME}/.ssh/claude_signing_key`) !== null,
+  stdin: "",
+};
+setTimeout(() => {
+  capture.stdin = stdin;
+  writeFileSync(process.env.ORACLE_CAPTURE!, JSON.stringify(capture));
+  process.exit(3);
+}, 700);

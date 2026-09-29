@@ -1,0 +1,3 @@
+# Only the oracle's own tests (not the vendored action's).
+[test]
+root = "./test"

@@ -1,0 +1,14 @@
+name = "VCore"
+version = "0.2.0"
+defaultTargets = ["VCore", "vcore"]
+
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+
+[[lean_lib]]
+name = "VCore"
+
+[[lean_exe]]
+name = "vcore"
+root = "Main"

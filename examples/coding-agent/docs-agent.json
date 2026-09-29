@@ -1,0 +1,4 @@
+{
+  "permit": ["Read/docs/**", "Read/src/**", "Edit/docs/**", "WebFetch/**"],
+  "label": { "WebFetch/**": "untrusted" }
+}

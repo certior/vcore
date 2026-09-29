@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "vcore: verified refinement checking for AI agent session policies"
+authors:
+  - family-names: Bourigault
+    given-names: Pauline
+repository-code: "https://github.com/certior/vcore"
+license: Apache-2.0
+version: 0.2.0
+date-released: 2026-09-15
+keywords:
+  - formal verification
+  - Lean 4
+  - AI agents
+  - access control
+  - policy refinement

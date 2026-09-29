@@ -1,0 +1,313 @@
+{
+  "date": "2026-09-15",
+  "machine": "13th Gen Intel(R) Core(TM) i9-13900H",
+  "python": "3.13.9",
+  "lean": "4.34.0",
+  "cases": 1000,
+  "proofs": {
+    "lean_lines": 1462,
+    "theorems": 102,
+    "sorry": 0,
+    "axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "lean_mutants": [
+      {
+        "name": "forbid-ignored",
+        "bug": "`forbid` no longer overrides `permit`",
+        "rejected": true,
+        "broken": [
+          "allows_iff"
+        ]
+      },
+      {
+        "name": "block-on-any-tag",
+        "bug": "a block fires when any tag of its combination is present",
+        "rejected": true,
+        "broken": [
+          "blocked_iff"
+        ]
+      },
+      {
+        "name": "empty-authority-allows",
+        "bug": "an authority with no policies allows everything",
+        "rejected": true,
+        "broken": [
+          "allows_iff",
+          "allows_nil"
+        ]
+      },
+      {
+        "name": "noncanonical-allowed",
+        "bug": "requests with `.`, `..` or empty segments are evaluated",
+        "rejected": true,
+        "broken": [
+          "allows_iff"
+        ]
+      },
+      {
+        "name": "context-reset",
+        "bug": "running a request replaces the context with its tags",
+        "rejected": true,
+        "broken": [
+          "step",
+          "mem_step"
+        ]
+      },
+      {
+        "name": "insert-drops-tag",
+        "bug": "adding a tag to a context can lose it",
+        "rejected": true,
+        "broken": [
+          "mem_insert"
+        ]
+      },
+      {
+        "name": "merge-overwrites",
+        "bug": "the compiler overwrites a table entry instead of merging",
+        "rejected": true,
+        "broken": [
+          "get_add"
+        ]
+      },
+      {
+        "name": "keys-off-by-one",
+        "bug": "lookup skips the prefix equal to the whole request",
+        "rejected": true,
+        "broken": [
+          "covers_iff_mem_keys"
+        ]
+      },
+      {
+        "name": "fresh-segment-constant",
+        "bug": "the junction segment is always `_`",
+        "rejected": true,
+        "broken": [
+          "fresh_not_mem",
+          "exists_rep"
+        ]
+      },
+      {
+        "name": "no-junction-reps",
+        "bug": "representatives omit the fresh junction segment",
+        "rejected": true,
+        "broken": [
+          "exists_rep"
+        ]
+      },
+      {
+        "name": "search-depth-one",
+        "bug": "the checker explores one step, the bound for single-tag rules",
+        "rejected": true,
+        "broken": [
+          "escalationWithin_sound",
+          "escalationWithin_eq_none"
+        ]
+      }
+    ]
+  },
+  "agreement": {
+    "runtime": 0,
+    "checker": 0,
+    "parser": 0,
+    "parser_cases": 2000
+  },
+  "precision": {
+    "pairs": 1000,
+    "refinements": 598,
+    "escalations": 402,
+    "missed_stateless": 29,
+    "false_alarms": 94,
+    "missed_depth2": 19,
+    "by_width": {
+      "0": {
+        "pairs": 92,
+        "refines": 60,
+        "1": 32
+      },
+      "1": {
+        "pairs": 116,
+        "refines": 72,
+        "1": 36,
+        "2": 8
+      },
+      "2": {
+        "pairs": 386,
+        "refines": 217,
+        "1": 134,
+        "2": 25,
+        "3": 10
+      },
+      "3": {
+        "pairs": 406,
+        "1": 124,
+        "refines": 249,
+        "2": 24,
+        "3": 8,
+        "4": 1
+      }
+    }
+  },
+  "unverified_mutants": [
+    {
+      "name": "forbid_ignored",
+      "bug": "`forbid` does not override `permit`",
+      "caught_after": 1,
+      "rare": false
+    },
+    {
+      "name": "block_on_any_tag",
+      "bug": "A block fires when any tag of its combination is present, not all",
+      "caught_after": 25,
+      "rare": false
+    },
+    {
+      "name": "chain_any",
+      "bug": "An authority allows a request if any of its policies does",
+      "caught_after": 1,
+      "rare": false
+    },
+    {
+      "name": "denied_request_taints",
+      "bug": "A denied request still adds its tags",
+      "caught_after": 4,
+      "rare": false
+    },
+    {
+      "name": "noncanonical_allowed",
+      "bug": "Requests with empty, `.` or `..` segments are evaluated instead of denied",
+      "caught_after": 1,
+      "rare": false
+    },
+    {
+      "name": "keys_off_by_one",
+      "bug": "`a/b/**` is not looked up for the request `a/b` itself",
+      "caught_after": 11,
+      "rare": false
+    },
+    {
+      "name": "suffix_as_prefix",
+      "bug": "Suffix entries are looked up under prefixes",
+      "caught_after": 2,
+      "rare": false
+    },
+    {
+      "name": "character_glob",
+      "bug": "`secrets/**` also covers `secrets-public`: prefix matching on the joined string",
+      "caught_after": 66,
+      "rare": false
+    },
+    {
+      "name": "checker_depth_two",
+      "bug": "The checker searches two requests deep, the bound for single-tag rules",
+      "caught_after": 82,
+      "rare": false
+    },
+    {
+      "name": "no_fresh_segment",
+      "bug": "The Z3 encoding only considers segments that appear in the policies",
+      "caught_after": null,
+      "rare": true
+    }
+  ],
+  "case_study": [
+    {
+      "edit": "trust the issue tracker (`trust-issues.json`)",
+      "escalation": 3,
+      "depth2": false,
+      "stateless": false
+    },
+    {
+      "edit": "remove a dead rule (`cleanup.json`)",
+      "escalation": null,
+      "depth2": false,
+      "stateless": true
+    },
+    {
+      "edit": "attach a sub-agent policy alone (`docs-agent.json`)",
+      "escalation": 1,
+      "depth2": true,
+      "stateless": true
+    },
+    {
+      "edit": "attach it as a delegate (`docs-agent-delegated.json`)",
+      "escalation": null,
+      "depth2": false,
+      "stateless": false
+    },
+    {
+      "edit": "`policy.json` satisfies the Rule of Two?",
+      "escalation": 3,
+      "depth2": false,
+      "stateless": true
+    },
+    {
+      "edit": "`hardened.json` satisfies the Rule of Two?",
+      "escalation": null,
+      "depth2": false,
+      "stateless": false
+    }
+  ],
+  "runtime_cost": [
+    {
+      "statements": 10,
+      "compile_ms": 0.10939399999188026,
+      "index_us": 6.044975499889915,
+      "scan_us": 2.30310200004169
+    },
+    {
+      "statements": 100,
+      "compile_ms": 0.6483719998868764,
+      "index_us": 5.781679999927292,
+      "scan_us": 19.587306999937937
+    },
+    {
+      "statements": 1000,
+      "compile_ms": 25.763536000340537,
+      "index_us": 4.15911549998782,
+      "scan_us": 162.30545099983829
+    },
+    {
+      "statements": 10000,
+      "compile_ms": 2165.0647129999925,
+      "index_us": 12.833142000090447,
+      "scan_us": 1738.5148925000067
+    }
+  ],
+  "checker_cost": [
+    {
+      "statements": 16,
+      "lean_ms": 0.7543070000792795,
+      "z3_ms": 45.67661999999473,
+      "strings_ms": 26.275571000041964,
+      "strings_timeouts": 0,
+      "strings_run": true
+    },
+    {
+      "statements": 64,
+      "lean_ms": 3.6915559999215475,
+      "z3_ms": 253.00720399991405,
+      "strings_ms": 395.6318404996182,
+      "strings_timeouts": 1,
+      "strings_run": true
+    },
+    {
+      "statements": 256,
+      "lean_ms": 194.13097699998616,
+      "z3_ms": 944.5339570002034,
+      "strings_ms": null,
+      "strings_timeouts": 0,
+      "strings_run": false
+    },
+    {
+      "statements": 1024,
+      "lean_ms": 14355.625519000114,
+      "z3_ms": 2441.571182000189,
+      "strings_ms": null,
+      "strings_timeouts": 0,
+      "strings_run": false
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vcore.invalid/bench/scenario.schema.json",
+  "title": "Scenario",
+  "description": "One run of a GitHub Actions workflow that uses anthropics/claude-code-action: the workflow file, the event that fires it, who fires it, and who authored the content it touches. Consumed by the oracle (oracle/run.ts) and by the model; both produce an Observation.",
+  "type": "object",
+  "required": ["id", "workflow", "event", "actor"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "description": { "type": "string" },
+    "workflow": { "type": "string", "description": "Full workflow YAML text." },
+    "job": { "type": "string", "description": "Job id. Default: the first job with a claude-code-action step." },
+    "step": { "type": "integer", "minimum": 0, "description": "Index into the job's steps. Default: the first claude-code-action step." },
+    "event": {
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": ["issues", "issue_comment", "pull_request", "pull_request_target", "pull_request_review",
+                   "pull_request_review_comment", "workflow_dispatch", "repository_dispatch", "schedule",
+                   "workflow_run", "push"]
+        },
+        "action": { "type": ["string", "null"], "description": "Webhook activity type, e.g. created, opened, labeled." },
+        "mention": { "type": "boolean", "default": true, "description": "Whether the triggering text (comment, review, issue or PR body) contains the trigger phrase." },
+        "label": { "type": "string", "description": "Label added (issues/labeled). Default: the label_trigger input." },
+        "assignee": { "type": "string", "description": "Assignee login (issues/assigned). Default: the assignee_trigger input without '@'." },
+        "inputs": { "type": "object", "description": "workflow_dispatch inputs.", "additionalProperties": { "type": ["string", "boolean", "number"] } },
+        "client_payload": { "type": "object", "description": "repository_dispatch client_payload." }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "required": ["login", "permission"],
+      "additionalProperties": false,
+      "properties": {
+        "login": { "type": "string" },
+        "permission": { "enum": ["admin", "maintain", "write", "triage", "read", "none"] },
+        "type": { "enum": ["User", "Bot"], "default": "User" }
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "target": { "enum": ["issue", "pr"], "default": "issue", "description": "For issue_comment: whether the thread is an issue or a pull request." },
+        "issue_author": { "$ref": "#/$defs/role", "default": "outsider" },
+        "comment_authors": { "type": "array", "items": { "$ref": "#/$defs/role" }, "default": [], "description": "Authors of comments that existed before the trigger, oldest first." },
+        "pr_author": { "$ref": "#/$defs/role", "default": "outsider" },
+        "pr_head": { "enum": ["same-repo", "fork"], "default": "fork" },
+        "review_authors": { "type": "array", "items": { "$ref": "#/$defs/role" }, "default": [] }
+      }
+    },
+    "repo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "owner": { "type": "string", "default": "acme" },
+        "name": { "type": "string", "default": "widget" },
+        "visibility": { "enum": ["public", "private"], "default": "public" },
+        "default_branch": { "type": "string", "default": "main" },
+        "default_token_permissions": { "enum": ["restricted", "permissive"], "default": "restricted",
+          "description": "Repository setting for GITHUB_TOKEN when the workflow declares no permissions." }
+      }
+    },
+    "secrets": {
+      "type": "array", "items": { "type": "string" },
+      "description": "Repository secrets that exist. Default: every secret the workflow references exists."
+    },
+    "vars": { "type": "object", "additionalProperties": { "type": "string" } }
+  },
+  "$defs": {
+    "role": {
+      "enum": ["maintainer", "outsider"],
+      "description": "maintainer: login 'maintainer', write access. outsider: login 'outsider', read access (any GitHub account on a public repository)."
+    }
+  }
+}
