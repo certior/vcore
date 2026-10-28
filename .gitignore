@@ -17,5 +17,4 @@ node_modules/
 /oracle/probe/*.log
 /oracle/probe/cli_out.json
 
-# local notes, not published
 /DISCLOSURE.md

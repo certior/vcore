@@ -2,7 +2,7 @@
 
 **Verified checking for AI agent policies that remember.**
 
-🤗 [Benchmark](https://huggingface.co/datasets/paulibo/vcore-actions-benchmark) · 🤗 [Corpus](https://huggingface.co/datasets/paulibo/vcore-workflow-envelopes)
+📝 [Write-up](https://paulinebourigault.github.io/blog/2026/what-the-agent-may-do/) · 🤗 [Benchmark](https://huggingface.co/datasets/paulibo/vcore-actions-benchmark) · 🤗 [Corpus](https://huggingface.co/datasets/paulibo/vcore-workflow-envelopes)
 
 The rules recommended for AI agents today are about sessions, not single calls: no
 external communication once the agent has seen both private data and untrusted content
@@ -21,9 +21,8 @@ possible request:
 It answers with a proof or a counterexample. The decision procedure, the theorem that
 makes it finite, and the compiler behind the runtime are proved correct in Lean 4.
 
-The write-up, [*The lethal trifecta takes three steps*](site/index.html), explains the problem,
-the two ideas behind the checker and the evaluation; it is a static page that GitHub Pages
-can serve from `site/`.
+The research note [*What the agent may do*](https://paulinebourigault.github.io/blog/2026/what-the-agent-may-do/)
+applies it to coding agents in GitHub workflows.
 
 ## Example
 
@@ -92,7 +91,7 @@ The model of the action is checked against the action's own code
 ([`oracle/`](oracle/)): on 3,155 generated scenarios the two agree on every compared field in
 3,143. [`docs/actions.md`](docs/actions.md) describes the model and its assumptions,
 [`bench/`](bench/) the benchmark and [`corpus/`](corpus/) the study of public workflows. The
-write-up is [*What the agent may do*](https://paulinebourigault.github.io/blog/2026/what-the-agent-may-do/).
+results are discussed in [*What the agent may do*](https://paulinebourigault.github.io/blog/2026/what-the-agent-may-do/).
 
 ## Why this can be decided, and what is proved
 
@@ -206,8 +205,10 @@ python/vcore/   runtime, tool-call mapping, Lean bridge, Z3 checker
 python/tests/           differential, mutation, case study, CLI and hook tests
 scripts/                axiom audit, Lean mutation study, evaluation
 examples/               coding-agent case study, Claude Code hook
-docs/                   language reference, assurance, evaluation
-site/                   the write-up
+docs/                   language reference, assurance, evaluation, the action model
+bench/                  benchmark of workflow scenarios and fidelity results
+corpus/                 collection and analysis of public workflows
+oracle/                 runs the pinned claude-code-action against a mock GitHub API
 ```
 
 ## Limitations
@@ -243,7 +244,19 @@ site/                   the write-up
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff).
+If you use vcore, the benchmark or the corpus, please cite:
+
+```bibtex
+@misc{bourigault2026agent,
+  author       = {Bourigault, Pauline},
+  title        = {What the agent may do: verified authority envelopes for {AI} agents in {GitHub} workflows},
+  year         = {2026},
+  howpublished = {\url{https://paulinebourigault.github.io/blog/2026/what-the-agent-may-do/}},
+  note         = {Code: \url{https://github.com/certior/vcore}}
+}
+```
+
+Software metadata is in [CITATION.cff](CITATION.cff).
 
 ## License
 

@@ -23,10 +23,9 @@ test: build
 mutants: build
 	python3 scripts/mutate_lean.py
 
-# Regenerates docs/evaluation.md, site/results.json and the data in site/index.html.
+# Regenerates docs/evaluation.md and docs/results.json.
 evaluate: build
 	python3 scripts/evaluate.py
-	python3 scripts/build_site.py
 
 # --- Agents in GitHub workflows (docs/actions.md) -----------------------------------------
 

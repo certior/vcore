@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Run every experiment and write docs/evaluation.md and site/results.json.
+"""Run every experiment and write docs/evaluation.md and docs/results.json.
 
     python3 scripts/evaluate.py              # 1000 random cases per experiment (~5 min)
     python3 scripts/evaluate.py --cases 100  # quick run
 
-Numbers in the documentation and on the website come from these two files only;
-`scripts/build_site.py` embeds them in site/index.html (`make evaluate` runs both).
+Numbers in the documentation come from these two files only.
 """
 
 from __future__ import annotations
@@ -416,10 +415,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--cases", type=int, default=1000)
     parser.add_argument("--report-only", action="store_true",
-                        help="rewrite docs/evaluation.md from site/results.json")
+                        help="rewrite docs/evaluation.md from docs/results.json")
     args = parser.parse_args()
     if args.report_only:
-        results = json.loads((REPO / "site" / "results.json").read_text())
+        results = json.loads((REPO / "docs" / "results.json").read_text())
         (REPO / "docs" / "evaluation.md").write_text(write_report(results))
         return
     n = args.cases
@@ -439,11 +438,10 @@ def main() -> None:
             print(f"{name}...", file=sys.stderr)
             results[name] = fn()
             print(f"  {time.time() - start:.0f} s", file=sys.stderr)
-    (REPO / "site").mkdir(exist_ok=True)
-    (REPO / "site" / "results.json").write_text(json.dumps(results, indent=2) + "\n")
     (REPO / "docs").mkdir(exist_ok=True)
+    (REPO / "docs" / "results.json").write_text(json.dumps(results, indent=2) + "\n")
     (REPO / "docs" / "evaluation.md").write_text(write_report(results))
-    print("wrote docs/evaluation.md and site/results.json", file=sys.stderr)
+    print("wrote docs/evaluation.md and docs/results.json", file=sys.stderr)
 
 
 if __name__ == "__main__":

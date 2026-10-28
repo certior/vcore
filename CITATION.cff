@@ -14,3 +14,12 @@ keywords:
   - AI agents
   - access control
   - policy refinement
+preferred-citation:
+  type: blog
+  title: "What the agent may do: verified authority envelopes for AI agents in GitHub workflows"
+  authors:
+    - family-names: Bourigault
+      given-names: Pauline
+  year: 2026
+  month: 9
+  url: "https://paulinebourigault.github.io/blog/2026/what-the-agent-may-do/"
